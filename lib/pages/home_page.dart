@@ -1,0 +1,410 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
+import 'package:news_app/models/category_model.dart';
+import 'package:news_app/models/slider_model.dart';
+import 'package:news_app/services/data.dart';
+import 'package:news_app/services/slider_data.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  // for catogory -> Business, Sports, Health etc...
+  List<CategoryModel> categories = [];
+  // for Carousel Slider
+  List<SliderModel> slider = [];
+
+  //!for DotIndi
+  int activeIndex = 0;
+
+  @override
+  void initState() {
+    categories = getCategories();
+    slider = getSlider();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white10,
+        title: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Flutter ',
+              style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              'News',
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        centerTitle: true,
+        elevation: 0,
+      ),
+      body: SingleChildScrollView(
+        child: SizedBox(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //! Categories
+              Container(
+                margin: const EdgeInsets.only(left: 10),
+                height: 70,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: categories.length,
+                  itemBuilder: (context, index) {
+                    return CategoryTile(
+                      image: categories[index].image,
+                      categoryName: categories[index].categoryName,
+                    );
+                  },
+                ),
+              ),
+              // -----
+              const SizedBox(
+                height: 20,
+              ),
+
+              const Padding(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Breaking News!",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      "View all",
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(
+                height: 20,
+              ),
+
+              //! CarouselSlide
+              CarouselSlider.builder(
+                itemCount: slider.length,
+                itemBuilder: (context, index, realIndex) {
+                  String? res = slider[index].image;
+                  String? res1 = slider[index].name;
+                  return buildImage(res!, index, res1!);
+                },
+                options: CarouselOptions(
+                    height: 250,
+                    //viewportFraction: 0.8,
+                    autoPlay: true,
+                    enlargeCenterPage: true,
+                    enlargeStrategy: CenterPageEnlargeStrategy.height,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        activeIndex = index;
+                      });
+                    }),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Center(
+                child: buidIndicator(),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              const Padding(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Trending News!",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      "View all",
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                ),
+                child: Card(
+                  elevation: 3,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 13,
+                        ),
+                        height: 100,
+                        width: 100,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.asset(
+                            "assets/images/b1.jpg",
+                            fit: BoxFit.cover,
+                            alignment: Alignment.center,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Column(
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 1.7,
+                            child: const Padding(
+                              padding: EdgeInsets.only(
+                                top: 6,
+                              ),
+                              child: Text(
+                                "This modification ensures that you do not go .",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 1.7,
+                            child: const Padding(
+                              padding: EdgeInsets.only(bottom: 4),
+                              child: Text(
+                                "Adjust the conditions as needed based on your specific requirements. This modification ensures that you do not go",
+                                // maxLines: 4,
+                                style: TextStyle(
+                                    color: Colors.black38,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                ),
+                child: Card(
+                  elevation: 3,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 13,
+                        ),
+                        height: 100,
+                        width: 100,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.asset(
+                            "assets/images/b1.jpg",
+                            fit: BoxFit.cover,
+                            alignment: Alignment.center,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Column(
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 1.7,
+                            child: const Padding(
+                              padding: EdgeInsets.only(
+                                top: 6,
+                              ),
+                              child: Text(
+                                "This modification ensures that you do not go .",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 1.7,
+                            child: const Padding(
+                              padding: EdgeInsets.only(bottom: 4),
+                              child: Text(
+                                "Adjust the conditions as needed based on your specific requirements. This modification ensures that you do not go",
+                                // maxLines: 4,
+                                style: TextStyle(
+                                    color: Colors.black38,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  buildImage(String image, int index, String name) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 5),
+      child: Stack(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Image.asset(
+              image,
+              height: 250,
+              fit: BoxFit.cover,
+              width: MediaQuery.of(context).size.width,
+            ),
+          ),
+          Container(
+            height: 250,
+            padding: const EdgeInsets.only(left: 10),
+            margin: const EdgeInsets.only(top: 170),
+            //color: Colors.black38,
+            width: MediaQuery.of(context).size.width,
+            decoration: const BoxDecoration(
+              color: Colors.black38,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10),
+              ),
+            ),
+            child: Text(
+              name,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buidIndicator() {
+    return AnimatedSmoothIndicator(
+      activeIndex: activeIndex,
+      count: slider.length,
+      effect: const ScaleEffect(
+          activeDotColor: Colors.blue, dotHeight: 10, dotWidth: 10),
+    );
+  }
+}
+
+//! CATEGORY TILE
+class CategoryTile extends StatelessWidget {
+  final image, categoryName;
+
+  const CategoryTile(
+      {required this.image, required this.categoryName, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(
+        right: 10,
+        top: 10,
+      ),
+      child: Stack(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(7),
+            child: Image.asset(
+              image,
+              width: 120,
+              height: 60,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Container(
+            width: 120,
+            height: 60,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
+              color: Colors.black.withOpacity(0.5),
+            ),
+            child: Center(
+              child: Text(
+                categoryName,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
