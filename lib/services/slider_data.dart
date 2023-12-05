@@ -19,6 +19,8 @@ List<SliderModel> getSlider() {
   slider.add(sliderModel);
   sliderModel = SliderModel();
 
+  
+
 
   
 
