@@ -33,7 +33,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
-  http: 
+  http: null
   smooth_page_indicator: ^1.1.0
 
 dev_dependencies:

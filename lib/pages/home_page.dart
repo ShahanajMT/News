@@ -34,9 +34,15 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     categories = getCategories();
-    slider = getSlider();
+    getSlider();
     getNews();
     super.initState();
+  }
+
+  getSlider() async {
+    Sliders sliderClass = Sliders();
+    await sliderClass.getSlider();
+    slider = sliderClass.slider;
   }
 
   getNews() async {
@@ -135,8 +141,8 @@ class _HomePageState extends State<HomePage> {
                     CarouselSlider.builder(
                       itemCount: slider.length,
                       itemBuilder: (context, index, realIndex) {
-                        String? res = slider[index].image;
-                        String? res1 = slider[index].name;
+                        String? res = slider[index].urlToImage;
+                        String? res1 = slider[index].title;
                         return buildImage(res!, index, res1!);
                       },
                       options: CarouselOptions(
@@ -377,8 +383,8 @@ class _HomePageState extends State<HomePage> {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: Image.asset(
-              image,
+            child: CachedNetworkImage(
+              imageUrl: image,
               height: 250,
               fit: BoxFit.cover,
               width: MediaQuery.of(context).size.width,
