@@ -9,7 +9,7 @@ List<CategoryModel> getCategories() {
   category.add(categoryModel);
   categoryModel = CategoryModel();
 
-  categoryModel.categoryName = "Entertinment";
+  categoryModel.categoryName = "Entertainment";
   categoryModel.image = "assets/images/entertinment.jpg";
   category.add(categoryModel);
   categoryModel = CategoryModel();
