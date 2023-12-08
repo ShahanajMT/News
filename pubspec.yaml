@@ -33,8 +33,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
-  http: 
+  http: null
   smooth_page_indicator: ^1.1.0
+  webview_flutter: ^4.4.2
 
 dev_dependencies:
   flutter_lints: ^2.0.0

@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   // for catogory -> Business, Sports, Health etc...
   List<CategoryModel> categories = [];
   // for Carousel Slider
-  List<SliderModel> slider = [];
+  List<SliderModel> sliders = [];
 
   List<ArticleModel> article = [];
 
@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     categories = getCategories();
-    slider = getSlider();
+    getSlider();
     getNews();
     super.initState();
   }
@@ -47,6 +47,12 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       isLoading = false;
     });
+  }
+
+  getSlider() async {
+    Sliders slider = Sliders();
+    await slider.getSlider();
+    sliders = slider.sliders;
   }
 
   @override
@@ -133,10 +139,10 @@ class _HomePageState extends State<HomePage> {
 
                     //! CarouselSlide
                     CarouselSlider.builder(
-                      itemCount: slider.length,
+                      itemCount: 5,
                       itemBuilder: (context, index, realIndex) {
-                        String? res = slider[index].image;
-                        String? res1 = slider[index].name;
+                        String? res = sliders[index].urlToImage;
+                        String? res1 = sliders[index].title;
                         return buildImage(res!, index, res1!);
                       },
                       options: CarouselOptions(
@@ -377,8 +383,8 @@ class _HomePageState extends State<HomePage> {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: Image.asset(
-              image,
+            child: CachedNetworkImage(
+              imageUrl: image,
               height: 250,
               fit: BoxFit.cover,
               width: MediaQuery.of(context).size.width,
@@ -414,7 +420,7 @@ class _HomePageState extends State<HomePage> {
   Widget buidIndicator() {
     return AnimatedSmoothIndicator(
       activeIndex: activeIndex,
-      count: slider.length,
+      count: 5,
       effect: const ScaleEffect(
           activeDotColor: Colors.blue, dotHeight: 10, dotWidth: 10),
     );
