@@ -1,11 +1,12 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:cached_network_image/cached_network_image.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:news_app/models/article_model.dart';
-
 import '../models/slider_model.dart';
 import '../services/news.dart';
 import '../services/slider_data.dart';
+import '../widgets/allNewsSection.dart';
+
 
 class AllNews extends StatefulWidget {
   String news;
@@ -34,18 +35,14 @@ class _AllNewsState extends State<AllNews> {
     News newsClass = News();
     await newsClass.getNews();
     articles = newsClass.news;
-    setState(() {
-      
-    });
+    setState(() {});
   }
 
   getSlider() async {
     Sliders slider = Sliders();
     await slider.getSlider();
     sliders = slider.sliders;
-    setState(() {
-      
-    });
+    setState(() {});
   }
 
   @override
@@ -82,58 +79,6 @@ class _AllNewsState extends State<AllNews> {
             );
           },
         ),
-      ),
-    );
-  }
-}
-
-class AllNewsSection extends StatelessWidget {
-  String image, desc, title;
-  AllNewsSection({
-    Key? key,
-    required this.image,
-    required this.desc,
-    required this.title,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: CachedNetworkImage(
-              imageUrl: image,
-              width: MediaQuery.of(context).size.width,
-              height: 200,
-              fit: BoxFit.cover,
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Text(
-            title,
-            style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
-            maxLines: 2,
-          ),
-          const SizedBox(
-            height: 4,
-          ),
-          Text(
-            desc,
-            style: TextStyle(
-                color: Colors.black.withOpacity(0.5),
-                fontWeight: FontWeight.w500,
-                fontSize: 16),
-            maxLines: 3,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-        ],
       ),
     );
   }

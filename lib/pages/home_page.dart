@@ -3,15 +3,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/pages/allNews_page.dart';
-import 'package:news_app/pages/category_news.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import 'package:news_app/models/article_model.dart';
 import 'package:news_app/models/category_model.dart';
 import 'package:news_app/models/slider_model.dart';
 import 'package:news_app/services/data.dart';
 import 'package:news_app/services/news.dart';
 import 'package:news_app/services/slider_data.dart';
+import '../widgets/blocTile.dart';
+import '../widgets/categoryTitle.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -95,6 +95,7 @@ class _HomePageState extends State<HomePage> {
                       margin: const EdgeInsets.only(left: 10),
                       height: 70,
                       child: ListView.builder(
+                        physics: const ClampingScrollPhysics(),
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         itemCount: categories.length,
@@ -111,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                       height: 20,
                     ),
 
-                     Padding(
+                    Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -125,12 +126,16 @@ class _HomePageState extends State<HomePage> {
                           ),
                           InkWell(
                             onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) =>  AllNews(news: "Breaking")));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AllNews(news: "Breaking")));
                             },
                             child: const Text(
                               "View all",
                               style: TextStyle(
-                                decoration: TextDecoration.underline,
+                                  decoration: TextDecoration.underline,
                                   color: Colors.blue,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold),
@@ -174,7 +179,7 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 30,
                     ),
-                     Padding(
+                    Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -188,14 +193,16 @@ class _HomePageState extends State<HomePage> {
                           ),
                           InkWell(
                             onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) =>  AllNews(news: "Trending")));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AllNews(news: "Trending")));
                             },
                             child: const Text(
-                              
                               "View all",
-                            
                               style: TextStyle(
-                                decoration: TextDecoration.underline,
+                                  decoration: TextDecoration.underline,
                                   color: Colors.blue,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold),
@@ -208,180 +215,23 @@ class _HomePageState extends State<HomePage> {
                       height: 30,
                     ),
 
-                    //----
-
-                    // InkWell(
-                    //   onTap: () {},
-                    //   child: Padding(
-                    //     padding: const EdgeInsets.symmetric(
-                    //       horizontal: 10,
-                    //     ),
-                    //     child: Card(
-                    //       elevation: 3,
-                    //       child: Row(
-                    //         crossAxisAlignment: CrossAxisAlignment.start,
-                    //         mainAxisAlignment: MainAxisAlignment.start,
-                    //         children: [
-                    //           Container(
-                    //             margin: const EdgeInsets.symmetric(
-                    //               horizontal: 6,
-                    //               vertical: 13,
-                    //             ),
-                    //             height: 100,
-                    //             width: 100,
-                    //             child: ClipRRect(
-                    //               borderRadius: BorderRadius.circular(10),
-                    //               child: Image.asset(
-                    //                 "assets/images/b1.jpg",
-                    //                 fit: BoxFit.cover,
-                    //                 alignment: Alignment.center,
-                    //               ),
-                    //             ),
-                    //           ),
-                    //           const SizedBox(
-                    //             width: 5,
-                    //           ),
-                    //           Column(
-                    //             children: [
-                    //               SizedBox(
-                    //                 width:
-                    //                     MediaQuery.of(context).size.width / 1.7,
-                    //                 child: const Padding(
-                    //                   padding: EdgeInsets.only(
-                    //                     top: 6,
-                    //                   ),
-                    //                   child: Text(
-                    //                     "This modification ensures that you do not go .",
-                    //                     style: TextStyle(
-                    //                       color: Colors.black,
-                    //                       fontSize: 20,
-                    //                       fontWeight: FontWeight.w300,
-                    //                     ),
-                    //                   ),
-                    //                 ),
-                    //               ),
-                    //               const SizedBox(
-                    //                 height: 5,
-                    //               ),
-                    //               SizedBox(
-                    //                 width:
-                    //                     MediaQuery.of(context).size.width / 1.7,
-                    //                 child: const Padding(
-                    //                   padding: EdgeInsets.only(bottom: 4),
-                    //                   child: Text(
-                    //                     "Adjust the conditions as needed based on your specific requirements. This modification ensures that you do not go",
-                    //                     // maxLines: 4,
-                    //                     style: TextStyle(
-                    //                         color: Colors.black38,
-                    //                         fontSize: 20,
-                    //                         fontWeight: FontWeight.w300),
-                    //                   ),
-                    //                 ),
-                    //               ),
-                    //             ],
-                    //           )
-                    //         ],
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-
                     const SizedBox(
                       height: 10,
                     ),
 
-                    
-
                     SizedBox(
-                     // margin: const EdgeInsets.only(bottom: 50),
-                      //decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),),
-                      //color: Colors.red,
-                      
                       child: ListView.builder(
-                         physics: const ClampingScrollPhysics(),
+                        physics: const ClampingScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: article.length,
                         itemBuilder: (context, index) {
-                          return BlocTile(imageUrl: article[index].urlToImage!, title: article[index].title!, desc: article[index].description!);
+                          return BlocTile(
+                              imageUrl: article[index].urlToImage!,
+                              title: article[index].title!,
+                              desc: article[index].description!);
                         },
                       ),
                     )
-
-                    // InkWell(
-                    //   onTap: () {
-
-                    //   },
-                    //   child: Padding(
-                    //     padding: const EdgeInsets.symmetric(
-                    //       horizontal: 10,
-                    //     ),
-                    //     child: Card(
-                    //       elevation: 3,
-                    //       child: Row(
-                    //         crossAxisAlignment: CrossAxisAlignment.start,
-                    //         mainAxisAlignment: MainAxisAlignment.start,
-                    //         children: [
-                    //           Container(
-                    //             margin: const EdgeInsets.symmetric(
-                    //               horizontal: 6,
-                    //               vertical: 13,
-                    //             ),
-                    //             height: 100,
-                    //             width: 100,
-                    //             child: ClipRRect(
-                    //               borderRadius: BorderRadius.circular(10),
-                    //               child: Image.asset(
-                    //                 "assets/images/b1.jpg",
-                    //                 fit: BoxFit.cover,
-                    //                 alignment: Alignment.center,
-                    //               ),
-                    //             ),
-                    //           ),
-                    //           const SizedBox(
-                    //             width: 5,
-                    //           ),
-                    //           Column(
-                    //             children: [
-                    //               SizedBox(
-                    //                 width: MediaQuery.of(context).size.width / 1.7,
-                    //                 child: const Padding(
-                    //                   padding: EdgeInsets.only(
-                    //                     top: 6,
-                    //                   ),
-                    //                   child: Text(
-                    //                     "This modification ensures that you do not go .",
-                    //                     style: TextStyle(
-                    //                       color: Colors.black,
-                    //                       fontSize: 20,
-                    //                       fontWeight: FontWeight.w300,
-                    //                     ),
-                    //                   ),
-                    //                 ),
-                    //               ),
-                    //               const SizedBox(
-                    //                 height: 5,
-                    //               ),
-                    //               SizedBox(
-                    //                 width: MediaQuery.of(context).size.width / 1.7,
-                    //                 child: const Padding(
-                    //                   padding: EdgeInsets.only(bottom: 4),
-                    //                   child: Text(
-                    //                     "Adjust the conditions as needed based on your specific requirements. This modification ensures that you do not go",
-                    //                     // maxLines: 4,
-                    //                     style: TextStyle(
-                    //                         color: Colors.black38,
-                    //                         fontSize: 20,
-                    //                         fontWeight: FontWeight.w300),
-                    //                   ),
-                    //                 ),
-                    //               ),
-                    //             ],
-                    //           )
-                    //         ],
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
@@ -436,153 +286,6 @@ class _HomePageState extends State<HomePage> {
       count: 5,
       effect: const ScaleEffect(
           activeDotColor: Colors.blue, dotHeight: 10, dotWidth: 10),
-    );
-  }
-}
-
-//! CATEGORY TILE
-class CategoryTile extends StatelessWidget {
-  final image, categoryName;
-
-  const CategoryTile(
-      {required this.image, required this.categoryName, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryNews(titleName: categoryName)));
-      },
-      child: Container(
-        margin: const EdgeInsets.only(
-          right: 10,
-          top: 10,
-        ),
-        child: Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(7),
-              child: Image.asset(
-                image,
-                width: 120,
-                height: 60,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Container(
-              width: 120,
-              height: 60,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6),
-                color: Colors.black.withOpacity(0.5),
-              ),
-              child: Center(
-                child: Text(
-                  categoryName,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-//! BLoc Tile
-class BlocTile extends StatelessWidget {
-  String imageUrl, title, desc;
-  BlocTile({
-    Key? key,
-    required this.imageUrl,
-    required this.title,
-    required this.desc,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 10,
-        ),
-        child: Card(
-          elevation: 3,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 6,
-                  vertical: 13,
-                ),
-                height: 100,
-                width: 100,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: CachedNetworkImage(
-                     imageUrl: imageUrl,
-                    fit: BoxFit.cover,
-                    alignment: Alignment.center,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              Column(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 1.7,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        top: 6,
-                      ),
-                      child: Text(
-                        title,
-                        maxLines: 2,
-                        style: const TextStyle(
-                          
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 1.7,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 4),
-                      child: Text(
-                        
-                        desc,
-                         maxLines: 4,
-                        style: const TextStyle(
-                            color: Colors.black38,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w300),
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
     );
   }
 }
