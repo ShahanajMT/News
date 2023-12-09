@@ -2,6 +2,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/pages/allNews_page.dart';
 import 'package:news_app/pages/category_news.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -110,24 +111,30 @@ class _HomePageState extends State<HomePage> {
                       height: 20,
                     ),
 
-                    const Padding(
-                      padding: EdgeInsets.only(left: 10, right: 10),
+                     Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             "Breaking News!",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold),
                           ),
-                          Text(
-                            "View all",
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) =>  AllNews(news: "Breaking")));
+                            },
+                            child: const Text(
+                              "View all",
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                  color: Colors.blue,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ],
                       ),
@@ -167,27 +174,32 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 30,
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 10, right: 10),
+                     Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             "Trending News!",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold),
                           ),
-                          Text(
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) =>  AllNews(news: "Trending")));
+                            },
+                            child: const Text(
+                              
+                              "View all",
                             
-                            "View all",
-                          
-                            style: TextStyle(
-                              decoration: TextDecoration.underline,
-                                color: Colors.blue,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                  color: Colors.blue,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ],
                       ),
